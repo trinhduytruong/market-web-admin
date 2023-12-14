@@ -10,23 +10,9 @@ import {
 } from "../../utils/globalConstantUtil";
 import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
 import { showNotification } from "../common/headerSlice";
+import { Link  } from 'react-router-dom'
 
-const TopSideButtons = () => {
-  const dispatch = useDispatch();
-
-  const openAddNewLeadModal = () => {
-    dispatch(
-      openModal({
-        title: "Tạo người dùng",
-        bodyType: MODAL_BODY_TYPES.LEAD_ADD_NEW,
-      })
-    );
-  };
-
-  
-};
-
-function Leads() {
+function Product() {
   const { leads } = useSelector((state) => state.lead);
   const dispatch = useDispatch();
 
@@ -37,7 +23,7 @@ function Leads() {
   const [user, setUser] = useState([]);
   useEffect(() => {
     const getData = async () => {
-      const res = await fetch(`http://localhost:8889/api/user/`);
+      const res = await fetch(`http://localhost:8889/api/food`);
       const data = await res.json();
       setUser(data);
     };
@@ -67,14 +53,17 @@ function Leads() {
         },
       })
     );
-    
   };
+
   const deleteUser = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8889/api/user/delete/${id}`, {
-        method: 'DELETE',
-      });
-  
+      const response = await fetch(
+        `http://localhost:8889/api/food/delete/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
       if (response.ok) {
         // Handle successful deletion here
         // For example, you could remove the user from the state to update the UI
@@ -94,21 +83,31 @@ function Leads() {
     deleteUser(id);
   };
 
+ 
+
   return (
     <>
-      <TitleCard
-        title="Người dùng"
-        topMargin="mt-2"
-        TopSideButtons={<TopSideButtons />}>
+      <div className="inline-block float-right">
+        <Link
+          to='/app/addproduct'
+          className="btn px-6 btn-sm normal-case btn-primary"
+          >
+          Thêm sản phẩm
+        </Link>
+      </div>
+
+   
+
+      <TitleCard title="Danh mục" topMargin="mt-2">
         {/* Leads List in table format loaded from slice after api call */}
         <div className="overflow-x-auto w-full">
           <table className="table w-full">
             <thead>
               <tr>
-                <th>Mã người dùng</th>
-                <th>Tên người dùng</th>
-                <th>Số điện thoại</th>
-                <th>Gropp</th>
+                <th>Mã sản phẩm</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá sản phẩm</th>
+                <th>Ảnh sản phẩm</th>
                 <th></th>
               </tr>
             </thead>
@@ -117,16 +116,11 @@ function Leads() {
                 return (
                   <tr key={k}>
                     <td>{l._id}</td>
+                    <td>{l.name}</td>
+                    <td>{l.price}</td>
                     <td>
-                        {l.name}
+                      <img src={l.image} width={300}/>
                     </td>
-                    <td>
-                        {l.phone}
-                    </td>
-                    <td>
-                        {l.isGroup ? "Có" : "Không"}
-                    </td>
-                   
                     <td>
                       <button
                         className="btn btn-square btn-ghost"
@@ -145,4 +139,4 @@ function Leads() {
   );
 }
 
-export default Leads;
+export default Product;

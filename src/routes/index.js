@@ -8,8 +8,12 @@ const Page404 = lazy(() => import('../pages/protected/404'))
 const Blank = lazy(() => import('../pages/protected/Blank'))
 const Charts = lazy(() => import('../pages/protected/Charts'))
 const Leads = lazy(() => import('../pages/protected/Leads'))
+const Categorys = lazy(() => import('../pages/protected/Category'))
+const Product = lazy(() => import('../pages/protected/Product'))
 const Integration = lazy(() => import('../pages/protected/Integration'))
 const Calendar = lazy(() => import('../pages/protected/Calendar'))
+
+const AddProduct = lazy(() => import('../pages/protected/AddProduct'))
 const Team = lazy(() => import('../pages/protected/Team'))
 const Transactions = lazy(() => import('../pages/protected/Transactions'))
 const Bills = lazy(() => import('../pages/protected/Bills'))
@@ -29,16 +33,16 @@ const routes = [
     component: Welcome, // view rendered
   },
   {
-    path: '/leads',
+    path: '/user',
     component: Leads,
   },
   {
-    path: '/settings-team',
-    component: Team,
+    path: '/category',
+    component: Categorys,
   },
   {
-    path: '/calendar',
-    component: Calendar,
+    path: '/product',
+    component: Product,
   },
   {
     path: '/transactions',
@@ -49,9 +53,14 @@ const routes = [
     component: ProfileSettings,
   },
   {
+    path: '/addproduct',
+    component: AddProduct,
+  },
+  {
     path: '/settings-billing',
     component: Bills,
   },
+
   {
     path: '/getting-started',
     component: GettingStarted,
