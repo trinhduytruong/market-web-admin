@@ -84,7 +84,7 @@ function EditProduct() {
   return (
     <>
       {data && (
-        <TitleCard title="Thêm sản phấm" topMargin="mt-2">
+        <TitleCard title="Thông tin sản phấm" topMargin="mt-2">
           <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <input
@@ -146,7 +146,7 @@ function EditProduct() {
             </div>
             <div className="mt-16">
               <button type="submit" className="btn btn-primary float-right">
-                Thêm
+                Cập nhật
               </button>
             </div>
           </form>

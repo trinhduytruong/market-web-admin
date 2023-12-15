@@ -43,6 +43,16 @@ function EditCate() {
     }
   };
 
+  useEffect(() => {
+    const getData = async () => {
+      const res = await fetch(`http://localhost:8889/api/category/${id}`);
+      const dataAPI = await res.json();
+      console.log(dataAPI);
+      setCategoryName(dataAPI.name)
+    };
+    getData();
+  }, [])
+
   return (
     <>
       <TitleCard title="Sửa danh mục" topMargin="mt-2">
