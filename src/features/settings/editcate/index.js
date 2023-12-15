@@ -6,17 +6,19 @@ import { showNotification } from "../../common/headerSlice";
 import InputText from "../../../components/Input/InputText";
 import TextAreaInput from "../../../components/Input/TextAreaInput";
 import ToogleInput from "../../../components/Input/ToogleInput";
-
-function ProfileSettings() {
+import { useParams } from "react-router-dom";
+function EditCate() {
   const [categoryName, setCategoryName] = useState("");
+  let { id } = useParams();
+  
   const handleSubmit = async (event) => {
     event.preventDefault(); // Ngăn trình duyệt reload khi form submit
 
     try {
       const response = await fetch(
-        "http://localhost:8889/api/category/create",
+        `http://localhost:8889/api/category/update/${id}`,
         {
-          method: "POST",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
@@ -29,7 +31,7 @@ function ProfileSettings() {
         // Xử lý thành công
         showNotification("Danh mục được tạo thành công", "success");
         setCategoryName(""); // Reset input field
-        alert('Thêm thành công')
+        alert('Cập nhật thành công')
         window.location.href = 'http://localhost:3000/app/category'
       } else {
         // Xử lý lỗi từ phía server
@@ -43,7 +45,7 @@ function ProfileSettings() {
 
   return (
     <>
-      <TitleCard title="Thêm danh mục" topMargin="mt-2">
+      <TitleCard title="Sửa danh mục" topMargin="mt-2">
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <input 
@@ -54,7 +56,7 @@ function ProfileSettings() {
           </div>
           <div className="mt-16">
             <button type="submit" className="btn btn-primary float-right">
-              Thêm
+              Cập nhật
             </button>
           </div>
         </form>
@@ -63,4 +65,4 @@ function ProfileSettings() {
   );
 }
 
-export default ProfileSettings;
+export default EditCate;

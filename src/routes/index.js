@@ -18,6 +18,8 @@ const Team = lazy(() => import('../pages/protected/Team'))
 const Transactions = lazy(() => import('../pages/protected/Transactions'))
 const Bills = lazy(() => import('../pages/protected/Bills'))
 const ProfileSettings = lazy(() => import('../pages/protected/ProfileSettings'))
+const EditCate = lazy(() => import('../pages/protected/EditCate'))
+const EditProduct = lazy(() => import('../pages/protected/EditProduct'))
 const GettingStarted = lazy(() => import('../pages/GettingStarted'))
 const DocFeatures = lazy(() => import('../pages/DocFeatures'))
 const DocComponents = lazy(() => import('../pages/DocComponents'))
@@ -51,6 +53,14 @@ const routes = [
   {
     path: '/settings-profile',
     component: ProfileSettings,
+  },
+  {
+    path: '/edit-cate/:id',
+    component:EditCate,
+  },
+  {
+    path: '/edit-product/:id',
+    component:EditProduct,
   },
   {
     path: '/addproduct',

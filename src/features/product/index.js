@@ -9,6 +9,8 @@ import {
   MODAL_BODY_TYPES,
 } from "../../utils/globalConstantUtil";
 import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
+import PencilSquareIcon  from "@heroicons/react/24/outline/PencilSquareIcon";
+
 import { showNotification } from "../common/headerSlice";
 import { Link  } from 'react-router-dom'
 
@@ -119,7 +121,7 @@ function Product() {
                     <td>{l.name}</td>
                     <td>{l.price}</td>
                     <td>
-                      <img src={l.image} width={300}/>
+                      <img src={l.image} width={100}/>
                     </td>
                     <td>
                       <button
@@ -127,6 +129,12 @@ function Product() {
                         onClick={() => handleDeleteUser(l._id)}>
                         <TrashIcon className="w-5" />
                       </button>
+                      <Link
+                         to={`/app/edit-product/${l._id}`}
+                        className="btn btn-square btn-ghost"
+                       >
+                        <PencilSquareIcon className="w-5" />
+                      </Link>
                     </td>
                   </tr>
                 );

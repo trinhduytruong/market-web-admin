@@ -9,6 +9,8 @@ import {
   MODAL_BODY_TYPES,
 } from "../../utils/globalConstantUtil";
 import TrashIcon from "@heroicons/react/24/outline/TrashIcon";
+import PencilSquareIcon  from "@heroicons/react/24/outline/PencilSquareIcon";
+
 import { showNotification } from "../common/headerSlice";
 import { Link  } from 'react-router-dom'
 
@@ -104,9 +106,8 @@ function Category() {
           <table className="table w-full">
             <thead>
               <tr>
-                <th>Mã danh</th>
-                <th>Tên danh</th>
-
+                <th>Mã danh mục</th>
+                <th>Tên danh mục</th>
                 <th></th>
               </tr>
             </thead>
@@ -123,6 +124,12 @@ function Category() {
                         onClick={() => handleDeleteUser(l._id)}>
                         <TrashIcon className="w-5" />
                       </button>
+                      <Link
+                         to={`/app/edit-cate/${l._id}`}
+                        className="btn btn-square btn-ghost"
+                       >
+                        <PencilSquareIcon className="w-5" />
+                      </Link>
                     </td>
                   </tr>
                 );

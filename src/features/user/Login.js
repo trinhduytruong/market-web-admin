@@ -15,20 +15,47 @@ function Login(){
     const [errorMessage, setErrorMessage] = useState("")
     const [loginObj, setLoginObj] = useState(INITIAL_LOGIN_OBJ)
 
-    const submitForm = (e) =>{
-        e.preventDefault()
-        setErrorMessage("")
-
-        if(loginObj.emailId.trim() === "")return setErrorMessage("Email Id is required! (use any value)")
-        if(loginObj.password.trim() === "")return setErrorMessage("Password is required! (use any value)")
-        else{
-            setLoading(true)
-            // Call API to check user credentials and save token in localstorage
-            localStorage.setItem("token", "DumyTokenHere")
-            setLoading(false)
-            window.location.href = '/app/welcome'
+    const submitForm = async (e) => {
+        e.preventDefault();
+        setErrorMessage("");
+      
+        if(loginObj.emailId.trim() === "") return setErrorMessage("Email là bắt buộc");
+        if(loginObj.password.trim() === "") return setErrorMessage("Mật khẩu là bắt buộc");
+      
+        setLoading(true);
+        
+        try {
+          const response = await fetch("http://localhost:8889/api/user/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              phone: loginObj.emailId, // Đảm bảo tên trường này phù hợp với API
+              password: loginObj.password,
+            }),
+          });
+      
+          const data = await response.json();
+          console.log(data);
+      
+          if (response.ok) {
+            if(data.user.isAdmin) {
+              localStorage.setItem("token", data._id); // Lưu _id như là token
+              window.location.href = '/app/welcome';
+            } else {
+              setErrorMessage("Bạn không có quyền truy cập.");
+            }
+          } else {
+            setErrorMessage(data.message || "Lỗi đăng nhập");
+          }
+        } catch (error) {
+          setErrorMessage("Lỗi mạng hoặc lỗi không xác định");
+        } finally {
+          setLoading(false);
         }
-    }
+      };
+      
 
     const updateFormValue = ({updateType, value}) => {
         setErrorMessage("")
